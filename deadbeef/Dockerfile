@@ -21,4 +21,4 @@ RUN cd /root && \
     mv deadbeef-fb/ddb_misc_filebrowser_GTK3.so /usr/lib/deadbeef/ && \
     rm -rf deadbeef-fb
 
-ENTRYPOINT /usr/bin/deadbeef
+ENTRYPOINT ["/usr/bin/deadbeef"]
