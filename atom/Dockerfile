@@ -9,9 +9,11 @@ RUN apt-get update && \
     add-apt-repository -y ppa:webupd8team/atom && \
     apt-get update && \
     apt-get install -y \
-        atom \
+        libgtk2.0-0 \
+        libcanberra-gtk-module \
+        gnome-themes-standard \
         libasound2 \
-        libgtk-3-0
+        atom
 
 ENTRYPOINT ["/usr/bin/atom", "--foreground"]
 

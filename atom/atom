@@ -13,7 +13,7 @@ docker run \
   --workdir `pwd` \
   -e HOME=$CONTAINER_HOME \
   -e DISPLAY=unix$DISPLAY \
-  -e GTK_THEME=Adwaita:dark \
+  -e GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc \
   -v $HOME:$CONTAINER_HOME \
   -v $CONTAINER_HOME/.config/gtk-3.0 \
   -v /usr/share/fonts:/usr/share/fonts:ro \
