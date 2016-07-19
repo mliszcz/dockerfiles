@@ -1,0 +1,24 @@
+#!/bin/bash
+
+USER_UID=`id -u`
+USER_GID=`id -g`
+
+CONTAINER_HOME=$HOME
+
+docker run \
+  -i \
+  --rm \
+  --read-only \
+  --user "$USER_UID:$USER_GID" \
+  --workdir `pwd` \
+  -e HOME=$CONTAINER_HOME \
+  -e DISPLAY=unix$DISPLAY \
+  -e LANG=en_US.UTF-8 \
+  -e GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc \
+  -v $HOME:$CONTAINER_HOME \
+  -v /usr/share/fonts:/usr/share/fonts:ro \
+  -v /media:/media:ro \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  mliszcz/sublime-text \
+  "$@" \
+  >/dev/null 2>&1 &
