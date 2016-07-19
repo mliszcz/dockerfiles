@@ -13,6 +13,6 @@ RUN apt-get update && \
         libasound2 \
         libgtk-3-0
 
-ENTRYPOINT ["/usr/bin/atom"]
+ENTRYPOINT ["/usr/bin/atom", "--foreground"]
 
-CMD ["--foreground"]
+CMD []

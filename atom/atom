@@ -3,14 +3,14 @@
 USER_UID=`id -u`
 USER_GID=`id -g`
 
-# use AUDIO_GID group for ALSA output
-
 CONTAINER_HOME=$HOME
 
 docker run \
-  -it \
+  -i \
   --rm \
+  --read-only \
   --user "$USER_UID:$USER_GID" \
+  --workdir `pwd` \
   -e HOME=$CONTAINER_HOME \
   -e DISPLAY=unix$DISPLAY \
   -e GTK_THEME=Adwaita:dark \
@@ -19,4 +19,6 @@ docker run \
   -v /usr/share/fonts:/usr/share/fonts:ro \
   -v /media:/media:ro \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
-  mliszcz/atom
+  mliszcz/atom \
+  "$@" \
+  >/dev/null 2>&1 &
