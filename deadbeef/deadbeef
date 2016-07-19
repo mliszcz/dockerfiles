@@ -9,9 +9,11 @@ AUDIO_GID=`cat /etc/group | grep audio | head -n 1 | awk -F ':' '{print $3}'`
 CONTAINER_HOME=/home/user
 
 docker run \
-  -it \
+  -i \
   --rm \
+  --read-only \
   --user "$USER_UID:$USER_GID" \
+  --workdir `pwd` \
   -e HOME=$CONTAINER_HOME \
   -e DISPLAY=unix$DISPLAY \
   -e PULSE_SERVER=unix:/run/user/$USER_UID/pulse/native \
@@ -25,5 +27,5 @@ docker run \
   -v /dev/shm:/dev/shm \
   -v /var/lib/dbus:/var/lib/dbus \
   -v /run/user/$USER_UID/pulse:/run/user/$USER_UID/pulse \
-  --name deadbeef \
-  mliszcz/deadbeef
+  mliszcz/deadbeef \
+  "$@"
