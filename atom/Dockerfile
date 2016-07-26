@@ -16,5 +16,3 @@ RUN apt-get update && \
         atom
 
 ENTRYPOINT ["/usr/bin/atom", "--foreground"]
-
-CMD []
