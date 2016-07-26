@@ -1,0 +1,29 @@
+#!/bin/bash
+
+USER_UID=`id -u`
+USER_GID=`id -g`
+
+WORKDIR=`pwd`
+HOST=`hostname --short`
+
+CONTAINER_HOME=$HOME
+
+docker run \
+  --rm \
+  --read-only \
+  --pid host \
+  --net host \
+  --user "$USER_UID:$USER_GID" \
+  --workdir "$WORKDIR" \
+  -e HOME=$CONTAINER_HOME \
+  -e DISPLAY=unix$DISPLAY \
+  -e GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc \
+  -v $HOME:$CONTAINER_HOME \
+  -v /usr/share/fonts:/usr/share/fonts:ro \
+  -v /media:/media:ro \
+  -v /mnt:/mnt:ro \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v /dev/shm:/dev/shm \
+  -v /var/lib/dbus:/var/lib/dbus \
+  mliszcz/gimp \
+  "$@"
