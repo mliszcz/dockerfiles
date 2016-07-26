@@ -4,25 +4,30 @@ USER_UID=`id -u`
 USER_GID=`id -g`
 AUDIO_GID=`cat /etc/group | grep audio | head -n 1 | awk -F ':' '{print $3}'`
 
+WORKDIR=`pwd`
+HOST=`hostname --short`
+
 # use AUDIO_GID group for ALSA output
 
-CONTAINER_HOME=/home/user
+CONTAINER_HOME=$HOME
 
 docker run \
-  -i \
   --rm \
   --read-only \
+  --pid host \
+  --net host \
   --user "$USER_UID:$USER_GID" \
-  --workdir `pwd` \
+  --workdir "$WORKDIR" \
+  --device /dev/snd \
   -e HOME=$CONTAINER_HOME \
   -e DISPLAY=unix$DISPLAY \
   -e PULSE_SERVER=unix:/run/user/$USER_UID/pulse/native \
   -e GTK_THEME=Adwaita:dark \
-  --device /dev/snd \
   -v $HOME:$CONTAINER_HOME \
   -v $CONTAINER_HOME/.config/gtk-3.0 \
   -v /usr/share/fonts:/usr/share/fonts:ro \
   -v /media:/media:ro \
+  -v /mnt:/mnt:ro \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /dev/shm:/dev/shm \
   -v /var/lib/dbus:/var/lib/dbus \

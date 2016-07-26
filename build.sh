@@ -1,10 +1,11 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 if [ "$#" -ne 1 ]; then
-    echo "usage: $0 <name>"
+    echo "usage: $0 <path>"
     exit 1
 fi
 
-docker build -t mliszcz/`basename $1` $DIR/$1
+FULLPATH=`cd $1; pwd`
+BASENAME=`basename $FULLPATH`
+
+docker build -t mliszcz/$BASENAME $FULLPATH
