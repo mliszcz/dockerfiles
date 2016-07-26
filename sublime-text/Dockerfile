@@ -17,4 +17,4 @@ RUN dpkg -i /home/*.deb && \
 
 RUN /bin/bash -c "printf '\x95' | dd seek=$((0xc700)) conv=notrunc bs=1 of=/opt/sublime_text/sublime_text"
 
-ENTRYPOINT ["/usr/bin/subl", "--wait", "--add"]
+ENTRYPOINT ["/usr/bin/subl", "--wait"]

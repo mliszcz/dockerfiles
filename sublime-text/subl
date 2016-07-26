@@ -18,6 +18,7 @@ docker run \
   -e HOME=$CONTAINER_HOME \
   -e DISPLAY=unix$DISPLAY \
   -e GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc \
+  -e LANG=en_US.UTF-8 \
   -v $HOME:$CONTAINER_HOME \
   -v /usr/share/fonts:/usr/share/fonts:ro \
   -v /media:/media:ro \
