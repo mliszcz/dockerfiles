@@ -7,8 +7,6 @@ AUDIO_GID=`cat /etc/group | grep audio | head -n 1 | awk -F ':' '{print $3}'`
 WORKDIR=`pwd`
 HOST=`hostname --short`
 
-# use AUDIO_GID group for ALSA output
-
 CONTAINER_HOME=$HOME
 
 docker run \
@@ -17,6 +15,7 @@ docker run \
   --pid host \
   --net host \
   --user "$USER_UID:$USER_GID" \
+  --group-add "$AUDIO_GID" \
   --workdir "$WORKDIR" \
   --device /dev/snd \
   -e HOME=$CONTAINER_HOME \
